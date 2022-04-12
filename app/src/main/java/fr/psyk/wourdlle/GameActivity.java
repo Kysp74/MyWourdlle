@@ -582,6 +582,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         TextView textView = findViewById(idTableauAchanger);
         Button button = findViewById(quelButtonId);
         tableauDesTouchesChangees.add(quelButtonId);
+       //tableauDesTouchesChangees.add(quelButtonId);
 
 
 
