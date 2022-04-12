@@ -138,7 +138,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     serieEnCours = serieEnCours -1;
                 }
                 MyDatabaseHelper db = new MyDatabaseHelper(this);
-                db.updateSerie(nbLettre,serieEnCours);
+                db.updateSerie(nbLettre,serieEnCours,hardMode);
                 db.close();
                 endGame("perdue");
             }
@@ -338,10 +338,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             button.setAlpha(01.00F);
 
         }
-        lettreVerte.clear();
-        lettreOrange.clear();
-        System.out.println("le tableau vert contient"+ lettreVerte.size());
-        System.out.println("le tableau orange contient"+ lettreOrange.size());
+
+
         tableauDesTouchesChangees.removeAll(tableauDesTouchesChangees);
         initVarible();
     }
@@ -444,7 +442,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         //analyse du mot
         if (lignePourLettre == 0 && !updateEssaiok){
             MyDatabaseHelper db = new MyDatabaseHelper(this);
-            serieEnCours = db.updateEssai(nbLettre);
+            serieEnCours = db.updateEssai(nbLettre,hardMode);
             updateEssaiok = true;
             db.close();
 
@@ -455,6 +453,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         //motOk = motexiste(motATester);
         motOk = true;
         if (motOk) {
+            lettreVerte.clear();
+            lettreOrange.clear();
             if (motATester.equals(motATrouver)) {
                 if (serieEnCours > -1) {
                     serieEnCours = serieEnCours + 1;
@@ -462,7 +462,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     serieEnCours = 0;
                 }
                 MyDatabaseHelper db = new MyDatabaseHelper(this);
-                db.updateScore(nbLettre, lignePourLettre + 1, serieEnCours);
+                db.updateScore(nbLettre, lignePourLettre + 1, serieEnCours,hardMode);
                 db.close();
                 endGame("gagner");
             } else {
@@ -483,7 +483,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     serieEnCours = serieEnCours - 1;
                 }
                 MyDatabaseHelper db = new MyDatabaseHelper(this);
-                db.updateSerie(nbLettre, serieEnCours);
+                db.updateSerie(nbLettre, serieEnCours,hardMode);
                 db.close();
                 endGame("perdue");
             }
@@ -549,26 +549,38 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             arrayListLettreATRouver.add(c);
         }
        int i = 0;
-        for (char d: listeLettreATester){
+        for (char d: listeLettreATester) {
             arrayListLettreATesTer.add(d);
 
-            if (arrayListLettreATRouver.contains(d)){
 
-                changeCouleur(d , "Orange",i);
-
-                if (arrayListLettreATRouver.indexOf(d) == i){
-
-                    changeCouleur(d , "Vert",i);
+            if (arrayListLettreATRouver.get(i) == arrayListLettreATesTer.get(i)) {
+                changeCouleur(d, "Vert", i);
 
 
-                }
-            } else{
+            }
+            i = i + 1;
+        }
+        i = 0;
+        for (char d: listeLettreATester) {
+            if (arrayListLettreATRouver.contains(d) && arrayListLettreATRouver.get(i) != arrayListLettreATesTer.get(i)) {
+
+                changeCouleur(d, "Orange", i);
+
+                // if (arrayListLettreATRouver.indexOf(d) == i){
+
+            }
+            i = i + 1;
+        }
+        i = 0;
+        for (char d: listeLettreATester) {
+            if (!lettreVerte.contains(d) && !lettreOrange.contains(d)){
                     changeCouleur(d , "Black",i);
 
                 }
-            i= i +1;
+
             }
         }
+
 
 
     @SuppressLint("UseCompatLoadingForColorStateLists")
@@ -582,8 +594,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         TextView textView = findViewById(idTableauAchanger);
         Button button = findViewById(quelButtonId);
         tableauDesTouchesChangees.add(quelButtonId);
-       //tableauDesTouchesChangees.add(quelButtonId);
-
 
 
             if (color.equals("Orange")){
@@ -591,20 +601,24 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 //modifier claiver en orange
 
                 nb = 0;
-                button.setBackgroundTintList(this.getResources().getColorStateList(R.color.orange));
+
                 if (lettreOrange.contains(c) || lettreVerte.contains(c)){
                     nb =  Collections.frequency(lettreOrange,c) +  Collections.frequency(lettreVerte,c);
                     int occurance = countOccurrences(motATrouver,c) ;
                     if (nb < occurance){
                         lettreOrange.add(c);
                         textView.setBackgroundColor(ContextCompat.getColor(context, R.color.orange));
+                       if (!lettreVerte.contains(c)) {
+                           button.setBackgroundTintList(this.getResources().getColorStateList(R.color.orange));
+                       }
                     }
 
-                    System.out.println(c + " est en orange et l'id et " + nb);
+                    System.out.println(c + " est en orange et le nombre est " + nb);
                 }else{
                     textView.setBackgroundColor(ContextCompat.getColor(context, R.color.orange));
                     lettreOrange.add(c);
-                    System.out.println(c + " est en orange et l'id et " + lettreOrange.get(lettreOrange.indexOf(c)));
+                    System.out.println(c + " est en orange et la lettre est  " + lettreOrange.get(lettreOrange.indexOf(c)));
+                    button.setBackgroundTintList(this.getResources().getColorStateList(R.color.orange));
                 }
 
                // System.out.println(c + " est en orange et l'id et " + quelButtonId);
@@ -688,7 +702,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     public void updateNombreSerie(){
 
         MyDatabaseHelper db = new MyDatabaseHelper(this);
-        db.updateSerie(nbLettre, serieEnCours);
+        db.updateSerie(nbLettre, serieEnCours,hardMode);
         db.close();
     }
     @Override

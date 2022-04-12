@@ -6,7 +6,9 @@ import androidx.core.content.ContextCompat;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.TextView;
 
 public class StatsActivity extends AppCompatActivity {
@@ -24,13 +26,16 @@ public class StatsActivity extends AppCompatActivity {
     Score scoreMots5 ;
     Score scoreMots10;
     private static final String TAG = "SQLite";
-
+    private Switch HardmodeSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stats);
 
+
+
+        HardmodeSwitch = findViewById(R.id.switchHardmodeStats);
         MyDatabaseHelper db = new MyDatabaseHelper(this);
         score4 = db.getScore("'lettres4'");
         score5 = db.getScore("'lettres5'");
@@ -44,8 +49,65 @@ public class StatsActivity extends AppCompatActivity {
         scoreDaily= db.getScore("'daily'");
         scoreMots5 = db.getScore("'mots5'");
         scoreMots10 = db.getScore("'mots10'");
+        updateStats();
+        HardmodeSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean checked = ((Switch) v).isChecked();
+                if (checked) {
+
+                    score4 = db.getScore("'HM-lettres4'");
+                    score5 = db.getScore("'HM-lettres5'");
+                    score6 = db.getScore("'HM-lettres6'");
+                    score7 = db.getScore("'HM-lettres7'");
+                    score8 = db.getScore("'HM-lettres8'");
+                    score9 = db.getScore("'HM-lettres9'");
+                    score10 = db.getScore("'HM-lettres10'");
+                    score11= db.getScore("'HM-lettres11'");
+                    score12= db.getScore("'HM-lettres12'");
+                    scoreDaily= db.getScore("'HM-daily'");
+                    scoreMots5 = db.getScore("'HM-mots5'");
+                    scoreMots10 = db.getScore("'HM-mots10'");
+                    updateStats();
+
+                } else {
+
+                    score4 = db.getScore("'lettres4'");
+                    score5 = db.getScore("'lettres5'");
+                    score6 = db.getScore("'lettres6'");
+                    score7 = db.getScore("'lettres7'");
+                    score8 = db.getScore("'lettres8'");
+                    score9 = db.getScore("'lettres9'");
+                    score10 = db.getScore("'lettres10'");
+                    score11= db.getScore("'lettres11'");
+                    score12= db.getScore("'lettres12'");
+                    scoreDaily= db.getScore("'daily'");
+                    scoreMots5 = db.getScore("'mots5'");
+                    scoreMots10 = db.getScore("'mots10'");
+                    updateStats();
+
+                }
+            }
+        });
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
+    private void updateStats() {
         Context context =this;
 
         Log.i(TAG, "MyDatabaseHelper.getscore ... " + 4);
@@ -184,16 +246,5 @@ public class StatsActivity extends AppCompatActivity {
         textViewmots10E.setText(String.valueOf(scoreMots10.essai));
         textViewmots10W.setText(String.valueOf(scoreMots10.win));
         textViewmots10S.setText(String.valueOf(scoreMots10.serie));
-
-
-
-
-
-
-
-
-
-
-
     }
 }

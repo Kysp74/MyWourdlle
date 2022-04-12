@@ -27,6 +27,20 @@
         android:layout_weight="1"
         />
 
+    <Switch
+        android:id="@+id/switchHardmodeStats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="HardMode  "
+
+        android:textSize="20dp" />
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
+
     <TableLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -43,8 +57,12 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/textviex_stats_hm"
                 android:gravity="center"
-                android:text="" />
+                android:background="@color/red"
+                android:textStyle="bold"
+                android:visibility="invisible"
+                android:text="HardCore" />
 
             <TextView
 

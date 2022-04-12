@@ -7,9 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-
 public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String TAG = "SQLite";
@@ -37,7 +34,6 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         // Execute Script.
         db.execSQL(script);
 
-
         String sctipt1 = "INSERT INTO Score (nom, essai, win, serie, coup1, coup2, coup3, coup4, coup5, coup6, coup7, temps) VALUES ('lettres4', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL);";
         String sctipt2 = "INSERT INTO Score (nom, essai, win, serie, coup1, coup2, coup3, coup4, coup5, coup6, coup7, temps) VALUES ('lettres5', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL);";
         String sctipt3 = "INSERT INTO Score (nom, essai, win, serie, coup1, coup2, coup3, coup4, coup5, coup6, coup7, temps) VALUES ('lettres6', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL);";
@@ -64,6 +60,31 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(sctipt11);
         db.execSQL(sctipt12);
 
+        sctipt1 = "INSERT INTO Score (nom, essai, win, serie, coup1, coup2, coup3, coup4, coup5, coup6, coup7, temps) VALUES ('HM-lettres4', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL);";
+        sctipt2 = "INSERT INTO Score (nom, essai, win, serie, coup1, coup2, coup3, coup4, coup5, coup6, coup7, temps) VALUES ('HM-lettres5', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL);";
+        sctipt3 = "INSERT INTO Score (nom, essai, win, serie, coup1, coup2, coup3, coup4, coup5, coup6, coup7, temps) VALUES ('HM-lettres6', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL);";
+        sctipt4 = "INSERT INTO Score (nom, essai, win, serie, coup1, coup2, coup3, coup4, coup5, coup6, coup7, temps) VALUES ('HM-lettres7', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL);";
+        sctipt5 = "INSERT INTO Score (nom, essai, win, serie, coup1, coup2, coup3, coup4, coup5, coup6, coup7, temps) VALUES ('HM-lettres8', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL);";
+        sctipt6 = "INSERT INTO Score (nom, essai, win, serie, coup1, coup2, coup3, coup4, coup5, coup6, coup7, temps) VALUES ('HM-lettres9', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL);";
+        sctipt7 = "INSERT INTO Score (nom, essai, win, serie, coup1, coup2, coup3, coup4, coup5, coup6, coup7, temps) VALUES ('HM-lettres10', 0,0, 0, 0, 0, 0, 0, 0, 0, 0, NULL);";
+        sctipt8 = "INSERT INTO Score (nom, essai, win, serie, coup1, coup2, coup3, coup4, coup5, coup6, coup7, temps) VALUES ('HM-lettres11', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL);";
+        sctipt9 = "INSERT INTO Score (nom, essai, win, serie, coup1, coup2, coup3, coup4, coup5, coup6, coup7, temps) VALUES ('HM-lettres12', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL);";
+        sctipt10 = "INSERT INTO Score (nom, essai, win, serie, coup1, coup2, coup3, coup4, coup5, coup6, coup7, temps) VALUES ('HM-mots5', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '00:00');";
+        sctipt11 = "INSERT INTO Score (nom, essai, win, serie, coup1, coup2, coup3, coup4, coup5, coup6, coup7, temps) VALUES ('HM-mots10', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '00:00');";
+        sctipt12 = "INSERT INTO Score (nom, essai, win, serie, coup1, coup2, coup3, coup4, coup5, coup6, coup7, temps) VALUES ('HM-daily', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '00:00');";
+
+        db.execSQL(sctipt1);
+        db.execSQL(sctipt2);
+        db.execSQL(sctipt3);
+        db.execSQL(sctipt4);
+        db.execSQL(sctipt5);
+        db.execSQL(sctipt6);
+        db.execSQL(sctipt7);
+        db.execSQL(sctipt8);
+        db.execSQL(sctipt9);
+        db.execSQL(sctipt10);
+        db.execSQL(sctipt11);
+        db.execSQL(sctipt12);
 
     }
 
@@ -71,6 +92,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
+
 
 
 
@@ -90,9 +112,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public int updateEssai(int nblettre){
-        String categorie = quelLettre(nblettre);
-        Log.i(TAG, "MyDatabaseHelper.updateEssai ... " + categorie);
+    public int updateEssai(int nblettre, boolean hardMode){
+        String categorie = quelLettre(nblettre,hardMode);
+        Log.i(TAG, "MyDatabaseHelper.updateEssai ... " + categorie + hardMode);
         SQLiteDatabase db = this.getWritableDatabase();
 
         Score scoreUpdate  = getScore(categorie);
@@ -109,12 +131,12 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public void updateScore( int nblettre , int nbcoup , int serie)  {
+    public void updateScore(int nblettre, int nbcoup, int serie, boolean hardMode)  {
         Log.i(TAG, "MyDatabaseHelper.updateScore ... " + nblettre);
         SQLiteDatabase db = this.getWritableDatabase();
 
-       int totalnbcoup = quelCoup(nblettre,nbcoup);
-        lettres= quelLettre(nblettre);
+       int totalnbcoup = quelCoup(nblettre,nbcoup,hardMode);
+        lettres= quelLettre(nblettre, hardMode);
 
         Score scoreUpdate  = getScore(lettres);
         win = scoreUpdate.win +1;
@@ -129,55 +151,88 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public void updateSerie(int categorie,int serie){
+    public void updateSerie(int categorie, int serie, boolean hardMode){
         Log.i(TAG, "MyDatabaseHelper.updateSerie ... " + categorie);
         SQLiteDatabase db = this.getWritableDatabase();
-        lettres= quelLettre(categorie);
+        lettres= quelLettre(categorie, hardMode);
         ContentValues cv = new ContentValues();
         cv.put("serie",serie);
         String where = "nom = " + lettres;
         db.update("Score", cv, where,null);
 
     }
-    private String quelLettre(int nombre){
+    private String quelLettre(int nombre, boolean hardMode){
 
-        switch (nombre){
-            case(4):
-                lettres = "'lettres4'";
-                break;
-            case(5):
-                lettres = "'lettres5'";
-                break;
-            case(6):
-                lettres = "'lettres6'";
-                break;
-            case(7):
-                lettres = "'lettres7'";
-                break;
-            case(8):
-                lettres = "'lettres8'";
-                break;
-            case(9):
-                lettres = "'lettres9'";
-                break;
-            case(10):
-                lettres = "'lettres10'";
-                break;
-            case(11):
-                lettres = "'lettres11'";
-                break;
-            case(12):
-                lettres = "'lettres12'";
-                break;
+        if (hardMode) {
+            switch (nombre) {
+                case (4):
+                    lettres = "'HM-lettres4'";
+                    break;
+                case (5):
+                    lettres = "'HM-lettres5'";
+                    break;
+                case (6):
+                    lettres = "'HM-lettres6'";
+                    break;
+                case (7):
+                    lettres = "'HM-lettres7'";
+                    break;
+                case (8):
+                    lettres = "'HM-lettres8'";
+                    break;
+                case (9):
+                    lettres = "'HM-lettres9'";
+                    break;
+                case (10):
+                    lettres = "'HM-lettres10'";
+                    break;
+                case (11):
+                    lettres = "'HM-lettres11'";
+                    break;
+                case (12):
+                    lettres = "'HM-lettres12'";
+                    break;
 
-        }return lettres;
+            }
+            return lettres;
+        }else{
+            switch (nombre){
+                case(4):
+                    lettres = "'lettres4'";
+                    break;
+                case(5):
+                    lettres = "'lettres5'";
+                    break;
+                case(6):
+                    lettres = "'lettres6'";
+                    break;
+                case(7):
+                    lettres = "'lettres7'";
+                    break;
+                case(8):
+                    lettres = "'lettres8'";
+                    break;
+                case(9):
+                    lettres = "'lettres9'";
+                    break;
+                case(10):
+                    lettres = "'lettres10'";
+                    break;
+                case(11):
+                    lettres = "'lettres11'";
+                    break;
+                case(12):
+                    lettres = "'lettres12'";
+                    break;
 
+            }return lettres;
+        }
 
     }
 
 
-    private int quelCoup(int categorie,int nbcoup){
-        Score score = getScore(quelLettre(categorie));
+    private int quelCoup(int categorie,int nbcoup, boolean hardMode ){
+        Score score = getScore(quelLettre(categorie, hardMode));
         switch (nbcoup){
             case(1):
                 coup = score.coup1;
