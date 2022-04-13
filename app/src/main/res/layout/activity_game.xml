@@ -73,21 +73,26 @@
             android:textColor="@color/white"/>
 
     </LinearLayout>
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+    />
+
     <TableLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="3">
-    </TableLayout>
-    <TableLayout
+        android:id="@+id/montableau"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_margin="0dp"
-        android:id="@+id/montableau"
-        android:layout_weight="1">
+       >
 
     </TableLayout>
-
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+    />
     <TableLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -235,7 +235,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 }
 
                 int numid = (i * 10000) + (j * 100)+1;
-                TableRow.LayoutParams tableRowParams = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT , TableRow.LayoutParams.MATCH_PARENT);
+                TableRow.LayoutParams tableRowParams = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT , TableRow.LayoutParams.WRAP_CONTENT);
                 tableRowParams.setMargins(2,2,2,2);
                 textView.setLayoutParams(tableRowParams);
                 textView.setPadding(15, 15,15, 15);
@@ -249,6 +249,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 tableRow.addView(textView);
             }
             tableLayout.addView(tableRow);
+
         }
         myLayout.removeView(tableLayout);
         myLayout.addView(tableLayout);
