@@ -59,6 +59,11 @@ public class StatsActivity extends AppCompatActivity {
 
                     textviewHardmode = findViewById(R.id.textView_stats_hm);
                     textviewHardmode.setVisibility(View.VISIBLE);
+                    textviewHardmode = findViewById(R.id.textView_stats_hm1);
+                    textviewHardmode.setVisibility(View.VISIBLE);
+                    textviewHardmode = findViewById(R.id.textView_stats_hm2);
+                    textviewHardmode.setVisibility(View.VISIBLE);
+
                     score4 = db.getScore("'HM-lettres4'");
                     score5 = db.getScore("'HM-lettres5'");
                     score6 = db.getScore("'HM-lettres6'");
@@ -76,6 +81,11 @@ public class StatsActivity extends AppCompatActivity {
                 } else {
                     textviewHardmode = findViewById(R.id.textView_stats_hm);
                     textviewHardmode.setVisibility(View.INVISIBLE);
+                    textviewHardmode = findViewById(R.id.textView_stats_hm1);
+                    textviewHardmode.setVisibility(View.INVISIBLE);
+                    textviewHardmode = findViewById(R.id.textView_stats_hm2);
+                    textviewHardmode.setVisibility(View.INVISIBLE);
+
                     score4 = db.getScore("'lettres4'");
                     score5 = db.getScore("'lettres5'");
                     score6 = db.getScore("'lettres6'");
@@ -114,7 +124,7 @@ public class StatsActivity extends AppCompatActivity {
     private void updateStats() {
         Context context =this;
 
-        Log.i(TAG, "MyDatabaseHelper.getscore ... " + 4);
+        Log.i(TAG, "MyDatabaseHelper.getscore ... ");
         String quelButton4E = "textView4E";
         String quelButton4W = "textView4W";
         String quelButton4S = "textView4S";
@@ -141,7 +151,7 @@ public class StatsActivity extends AppCompatActivity {
         textView5E.setText(String.valueOf(score5.essai));
         textView5W.setText(String.valueOf(score5.win));
         textView5S.setText(String.valueOf(score5.serie));
-        Log.i(TAG, "MyDatabaseHelper.getscore ... " + 4);
+
         int quelTextView6E = getResources().getIdentifier("textView6E", "id", context.getPackageName());
         TextView textView6E = findViewById(quelTextView6E);
         int quelTextView6W = getResources().getIdentifier("textView6W", "id", context.getPackageName());
@@ -151,7 +161,7 @@ public class StatsActivity extends AppCompatActivity {
         textView6E.setText(String.valueOf(score6.essai));
         textView6W.setText(String.valueOf(score6.win));
         textView6S.setText(String.valueOf(score6.serie));
-        Log.i(TAG, "MyDatabaseHelper.getscore ... " + 4);
+
         int quelTextView7E = getResources().getIdentifier("textView7E", "id", context.getPackageName());
         TextView textView7E = findViewById(quelTextView7E);
         int quelTextView7W = getResources().getIdentifier("textView7W", "id", context.getPackageName());
@@ -161,7 +171,7 @@ public class StatsActivity extends AppCompatActivity {
         textView7E.setText(String.valueOf(score7.essai));
         textView7W.setText(String.valueOf(score7.win));
         textView7S.setText(String.valueOf(score7.serie));
-        Log.i(TAG, "MyDatabaseHelper.getscore ... " + 4);
+
         int quelTextView8E = getResources().getIdentifier("textView8E", "id", context.getPackageName());
         TextView textView8E = findViewById(quelTextView8E);
         int quelTextView8W = getResources().getIdentifier("textView8W", "id", context.getPackageName());
@@ -171,7 +181,6 @@ public class StatsActivity extends AppCompatActivity {
         textView8E.setText(String.valueOf(score8.essai));
         textView8W.setText(String.valueOf(score8.win));
         textView8S.setText(String.valueOf(score8.serie));
-        Log.i(TAG, "MyDatabaseHelper.getscore ... " + 4);
         int quelTextView9E = getResources().getIdentifier("textView9E", "id", context.getPackageName());
         TextView textView9E = findViewById(quelTextView9E);
         int quelTextView9W = getResources().getIdentifier("textView9W", "id", context.getPackageName());
@@ -181,7 +190,7 @@ public class StatsActivity extends AppCompatActivity {
         textView9E.setText(String.valueOf(score9.essai));
         textView9W.setText(String.valueOf(score9.win));
         textView9S.setText(String.valueOf(score9.serie));
-        Log.i(TAG, "MyDatabaseHelper.getscore ... " + 4);
+
         int quelTextView10E = getResources().getIdentifier("textView10E", "id", context.getPackageName());
         TextView textView10E = findViewById(quelTextView10E);
         int quelTextView10W = getResources().getIdentifier("textView10W", "id", context.getPackageName());
@@ -191,7 +200,7 @@ public class StatsActivity extends AppCompatActivity {
         textView10E.setText(String.valueOf(score10.essai));
         textView10W.setText(String.valueOf(score10.win));
         textView10S.setText(String.valueOf(score10.serie));
-        Log.i(TAG, "MyDatabaseHelper.getscore ... " + 4);
+
         int quelTextView11E = getResources().getIdentifier("textView11E", "id", context.getPackageName());
         TextView textView11E = findViewById(quelTextView11E);
         int quelTextView11W = getResources().getIdentifier("textView11W", "id", context.getPackageName());
@@ -201,7 +210,7 @@ public class StatsActivity extends AppCompatActivity {
         textView11E.setText(String.valueOf(score11.essai));
         textView11W.setText(String.valueOf(score11.win));
         textView11S.setText(String.valueOf(score11.serie));
-        Log.i(TAG, "MyDatabaseHelper.getscore ... " + 4);
+
         int quelTextView12E = getResources().getIdentifier("textView12E", "id", context.getPackageName());
         TextView textView12E = findViewById(quelTextView12E);
         int quelTextView12W = getResources().getIdentifier("textView12W", "id", context.getPackageName());
@@ -211,7 +220,7 @@ public class StatsActivity extends AppCompatActivity {
         textView12E.setText(String.valueOf(score12.essai));
         textView12W.setText(String.valueOf(score12.win));
         textView12S.setText(String.valueOf(score12.serie));
-        Log.i(TAG, "MyDatabaseHelper.getscore ... " + 4);
+
         int quelTextViewdailyE = getResources().getIdentifier("textViewDE", "id", context.getPackageName());
         TextView textViewdailyE = findViewById(quelTextViewdailyE);
         int quelTextViewdailyW = getResources().getIdentifier("textViewDW", "id", context.getPackageName());
@@ -224,31 +233,17 @@ public class StatsActivity extends AppCompatActivity {
         textViewdailyE.setText(String.valueOf(scoreDaily.essai));
         textViewdailyW.setText(String.valueOf(scoreDaily.win));
         textViewdailyS.setText(String.valueOf(scoreDaily.serie));
-        Log.i(TAG, "MyDatabaseHelper.getscore ... " + 4);
-        int quelTextViewmots5E = getResources().getIdentifier("textViewM5E", "id", context.getPackageName());
-        TextView textViewmots5E = findViewById(quelTextViewmots5E);
-        int quelTextViewmots5W = getResources().getIdentifier("textViewM5W", "id", context.getPackageName());
-        TextView textViewmots5W = findViewById(quelTextViewmots5W);
-        int quelTextViewmots5S = getResources().getIdentifier("textViewM5S", "id", context.getPackageName());
-        TextView textViewmots5S = findViewById(quelTextViewmots5S);
+
+
         int queltextViewmots5T = getResources().getIdentifier("textViewM5Time", "id", context.getPackageName());
         TextView textViewmots5T = findViewById(queltextViewmots5T);
         textViewmots5T.setText(String.valueOf(scoreMots5.temps));
-        textViewmots5E.setText(String.valueOf(scoreMots5.essai));
-        textViewmots5W.setText(String.valueOf(scoreMots5.win));
-        textViewmots5S.setText(String.valueOf(scoreMots5.serie));
-        Log.i(TAG, "MyDatabaseHelper.getscore ... " + 4);
-        int quelTextViewmots10E = getResources().getIdentifier("textViewM10E", "id", context.getPackageName());
-        TextView textViewmots10E = findViewById(quelTextViewmots10E);
-        int quelTextViewmots10W = getResources().getIdentifier("textViewM10W", "id", context.getPackageName());
-        TextView textViewmots10W = findViewById(quelTextViewmots10W);
-        int quelTextViewmots10S = getResources().getIdentifier("textViewM10S", "id", context.getPackageName());
-        TextView textViewmots10S = findViewById(quelTextViewmots10S);
+
+
+
         int queltextViewmots10T = getResources().getIdentifier("textViewM10Time", "id", context.getPackageName());
         TextView textViewmots10T = findViewById(queltextViewmots10T);
         textViewmots10T.setText(String.valueOf(scoreMots10.temps));
-        textViewmots10E.setText(String.valueOf(scoreMots10.essai));
-        textViewmots10W.setText(String.valueOf(scoreMots10.win));
-        textViewmots10S.setText(String.valueOf(scoreMots10.serie));
+
     }
 }

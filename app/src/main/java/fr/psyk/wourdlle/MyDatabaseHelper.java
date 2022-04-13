@@ -7,6 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String TAG = "SQLite";
@@ -19,7 +23,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     private  int coup;
     private  String lettres = "";
-    private String nomCoup;
+    private String nomCoup ,oldtemps;
     private int essai,win,serie;
     public MyDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -146,6 +150,46 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         cv.put("serie",serie);
         cv.put(nomCoup,nombrecoups);
         String where = "nom = " + lettres;
+        db.update("Score", cv, where,null);
+// https://devstory.net/10433/android-sqlite-database
+    }
+
+    public void updateScoreMots(int nbmots, boolean hardMode, String temps)  {
+        Log.i(TAG, "MyDatabaseHelper.updateScoreMots ... " + nbmots);
+        SQLiteDatabase db = this.getWritableDatabase();
+        String categorie ="";
+       if (nbmots == 5 && hardMode) {
+           categorie = "'HM-mots5'";
+        }
+        if (nbmots == 5 && !hardMode) {
+            categorie = "'mots5'";
+        }
+        if (nbmots == 10 && hardMode) {
+            categorie = "'HM-mots10'";
+        }
+        if (nbmots == 10 && !hardMode) {
+            categorie = "'mots10'";
+        }
+
+
+        Score scoreUpdate  = getScore(categorie);
+        win = scoreUpdate.win +1;
+       oldtemps = scoreUpdate.temps;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("mm:ss");
+
+        try {
+            Date dateold = dateFormat.parse(oldtemps);
+            Date datenew = dateFormat.parse(temps);
+            if (dateold.after(datenew)){
+                temps = dateFormat.format(dateold);
+            }
+
+        } catch (ParseException e) {
+        }
+
+        ContentValues cv = new ContentValues();
+        cv.put("temps",temps);
+        String where = "nom = " + categorie ;
         db.update("Score", cv, where,null);
 // https://devstory.net/10433/android-sqlite-database
     }

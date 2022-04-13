@@ -16,9 +16,11 @@
             android:theme="@style/Theme.Wourdlle.NoActionBar" />
         <activity
             android:name=".GameActivity"
+            android:theme="@style/Theme.Wourdlle.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
+            android:theme="@style/Theme.Wourdlle.NoActionBar"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -8,19 +8,26 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.text.format.DateFormat;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -36,10 +43,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     int idARecup=1;
     String modeJeu ="";
     boolean hardMode = false;
-    String motATester = "";
+    String motATester = "" , temps;
     int nombreDeMotsATrouver , nombreDeMotEnCours = 1 ;
     TextView mTextView_Seek;
-    LinearLayout layoutSelectNbLettre;
+    LinearLayout layoutSelectNbLettre,layoutChrono;
     int premierLettre;
     Button go_training ;
     List<Integer> tableauDesTouchesChangees = new ArrayList<>();
@@ -49,6 +56,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     ArrayList<Character> lettreOrange = new ArrayList<>();
     ArrayList<Character> lettreVerte = new ArrayList<>();
     int nb;
+    private Chronometer chronometer2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,11 +80,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             generateNblettre();
             lanceLeJeu();
         }
-        //if (modeJeu.equals("10mots")){
-            //Toast.makeText(this, "Comming soon !!", Toast.LENGTH_SHORT).show();
-         //   generateNblettre();
-           // lanceLeJeu();
-        //}
+
 
 
 
@@ -181,6 +185,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             if(modeJeu.contains("Training")){
                 layoutSelectNbLettre = findViewById(R.id.game_train_layout);
                 layoutSelectNbLettre.setVisibility(View.VISIBLE);
+                layoutChrono = findViewById(R.id.game_chrono_layout);
+                layoutChrono.setVisibility(View.INVISIBLE);
                 modeJeu = "Training";
                 nombreDeMotsATrouver = 1;
             }
@@ -685,7 +691,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
         if (resultat.equals("gagner")){
             updateEssaiok = false;
-            Toast.makeText(this, "Bravo tu as gagné !!", Toast.LENGTH_SHORT).show();
+
             if (modeJeu.contains("mots")){
 
                 if (nombreDeMotEnCours < nombreDeMotsATrouver ){
@@ -718,6 +724,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     private int generateNblettre() {
 
+        if (nombreDeMotEnCours == 1){
+            chronometer2 = findViewById(R.id.chronometer2);
+            chronometer2.start();
+        }
         System.out.println("le nombre de mots encours est  " + nombreDeMotEnCours);
         List<Integer> listNbLettre = Arrays.asList(4,4,4,4,4,4,12,12,12,11,11,11,10,10,10,10,9,9,9,9,9,9,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,8,8,8,8,8,8,8,8,8,8,8,8);
         Collections.shuffle(listNbLettre);
@@ -730,6 +740,23 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     private void finModeMots() {
         //update des score mot avec temps
+        chronometer2.stop();
+
+        String chronoText = chronometer2.getText().toString();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("mm:ss");
+
+        try {
+            Date date = dateFormat.parse(chronoText);
+           temps = dateFormat.format(date);
+
+
+        } catch (ParseException e) {
+        }
+        MyDatabaseHelper db = new MyDatabaseHelper(this);
+        db.updateScoreMots(nombreDeMotsATrouver,hardMode,temps);
+        db.close();
+
+        Toast.makeText(this, "Bravo tu as gagné  en  "+temps+ "!!", Toast.LENGTH_SHORT).show();
         finish();
     }
 
