@@ -57,7 +57,7 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/textviex_stats_hm"
+                android:id="@+id/textView_stats_hm"
                 android:gravity="center"
                 android:background="@color/red"
                 android:textStyle="bold"

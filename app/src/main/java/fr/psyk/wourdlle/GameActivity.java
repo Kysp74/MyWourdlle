@@ -6,7 +6,6 @@ import androidx.core.content.ContextCompat;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -20,8 +19,10 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
@@ -36,7 +37,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     String modeJeu ="";
     boolean hardMode = false;
     String motATester = "";
-    int nombreDeMots = 0 ;
+    int nombreDeMotsATrouver , nombreDeMotEnCours = 1 ;
     TextView mTextView_Seek;
     LinearLayout layoutSelectNbLettre;
     int premierLettre;
@@ -66,14 +67,16 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(this, "Comming soon !!", Toast.LENGTH_SHORT).show();
             finish();
         }
-        if (modeJeu.equals("5mots")){
-            Toast.makeText(this, "Comming soon !!", Toast.LENGTH_SHORT).show();
-            finish();
+        if (modeJeu.equals("mots")){
+          //  Toast.makeText(this, "Comming soon !!", Toast.LENGTH_SHORT).show();
+            generateNblettre();
+            lanceLeJeu();
         }
-        if (modeJeu.equals("10mots")){
-            Toast.makeText(this, "Comming soon !!", Toast.LENGTH_SHORT).show();
-            finish();
-        }
+        //if (modeJeu.equals("10mots")){
+            //Toast.makeText(this, "Comming soon !!", Toast.LENGTH_SHORT).show();
+         //   generateNblettre();
+           // lanceLeJeu();
+        //}
 
 
 
@@ -179,17 +182,17 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 layoutSelectNbLettre = findViewById(R.id.game_train_layout);
                 layoutSelectNbLettre.setVisibility(View.VISIBLE);
                 modeJeu = "Training";
-                nombreDeMots = 1;
+                nombreDeMotsATrouver = 1;
             }
             if(modeJeu.contains("Daily")){
-                nombreDeMots = 1;
+                nombreDeMotsATrouver = 1;
                 modeJeu = "Daily";
             }if(modeJeu.contains("5")){
-                nombreDeMots = 5;
-                modeJeu = "5mots";
+                nombreDeMotsATrouver = 5;
+                modeJeu = "mots";
             }if(modeJeu.contains("10")){
-                nombreDeMots = 10;
-                modeJeu = "10mots";
+                nombreDeMotsATrouver = 10;
+                modeJeu = "mots";
             }
 
 
@@ -331,7 +334,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
 
         for (int idbutton: tableauDesTouchesChangees) {
-            System.out.println(idbutton);
+            //System.out.println(idbutton);
             Button button = findViewById(idbutton);
             button.setBackgroundTintList(this.getResources().getColorStateList(R.color.black));
            // button.setEnabled(true);
@@ -613,11 +616,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                        }
                     }
 
-                    System.out.println(c + " est en orange et le nombre est " + nb);
+                  //  System.out.println(c + " est en orange et le nombre est " + nb);
                 }else{
                     textView.setBackgroundColor(ContextCompat.getColor(context, R.color.orange));
                     lettreOrange.add(c);
-                    System.out.println(c + " est en orange et la lettre est  " + lettreOrange.get(lettreOrange.indexOf(c)));
+                   // System.out.println(c + " est en orange et la lettre est  " + lettreOrange.get(lettreOrange.indexOf(c)));
                     button.setBackgroundTintList(this.getResources().getColorStateList(R.color.orange));
                 }
 
@@ -629,7 +632,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 textView.setBackgroundColor(ContextCompat.getColor(context, R.color.green));
                 button.setBackgroundTintList(this.getResources().getColorStateList(R.color.green));
                 lettreVerte.add(c);
-                System.out.println(c + "est en vert et l'id et " + quelButtonId);
+               // System.out.println(c + "est en vert et l'id et " + quelButtonId);
                 //modifier claiver en Vert
 
             }
@@ -666,18 +669,43 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         if (resultat.equals("perdue")){
             updateEssaiok = false;
             Toast.makeText(this, "Perdu !! le mot était: " + motATrouver, Toast.LENGTH_LONG).show();
-            deleteinterface();
-            lanceLeJeu();
+            if (modeJeu.contains("mots")){
+                deleteinterface();
+                generateNblettre();
+                lanceLeJeu();
+
+            }
+            if  (modeJeu.contains("Training")) {
+                deleteinterface();
+                lanceLeJeu();
+            }
+            if  (modeJeu.contains("Daily")){
+                //perdu + blocage
+            }
         }
         if (resultat.equals("gagner")){
             updateEssaiok = false;
             Toast.makeText(this, "Bravo tu as gagné !!", Toast.LENGTH_SHORT).show();
-            if (nombreDeMots < 1){
+            if (modeJeu.contains("mots")){
 
-                finish();
+                if (nombreDeMotEnCours < nombreDeMotsATrouver ){
 
-            }else{
+                    nombreDeMotEnCours = nombreDeMotEnCours +1;
+                    deleteinterface();
+                    generateNblettre();
+                    lanceLeJeu();
 
+
+                }else {
+                    finModeMots();
+
+                }
+
+            }else if (modeJeu.contains("Daily")){
+                finModeDaily();
+
+
+            }else if (modeJeu.contains("Training")){
                 deleteinterface();
                 lanceLeJeu();
             }
@@ -686,6 +714,30 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
 
 
+    }
+
+    private int generateNblettre() {
+
+        System.out.println("le nombre de mots encours est  " + nombreDeMotEnCours);
+        List<Integer> listNbLettre = Arrays.asList(4,4,4,4,4,4,12,12,12,11,11,11,10,10,10,10,9,9,9,9,9,9,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,8,8,8,8,8,8,8,8,8,8,8,8);
+        Collections.shuffle(listNbLettre);
+        Random rand = new Random();
+        int randomIndex = rand.nextInt(listNbLettre.size());
+        nbLettre = listNbLettre.get(randomIndex);
+        return nbLettre;
+
+    }
+
+    private void finModeMots() {
+        //update des score mot avec temps
+        finish();
+    }
+
+
+    private void finModeDaily() {
+        // update score daily avec temps
+        // verrouiller le jeux a une fois  - peut etre avec date de realisation dans la bdd
+        finish();
     }
 
     private void miseAJourTableau(String lettre,int idAUpdate) {

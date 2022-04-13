@@ -27,6 +27,7 @@ public class StatsActivity extends AppCompatActivity {
     Score scoreMots10;
     private static final String TAG = "SQLite";
     private Switch HardmodeSwitch;
+    TextView textviewHardmode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,8 @@ public class StatsActivity extends AppCompatActivity {
                 boolean checked = ((Switch) v).isChecked();
                 if (checked) {
 
+                    textviewHardmode = findViewById(R.id.textView_stats_hm);
+                    textviewHardmode.setVisibility(View.VISIBLE);
                     score4 = db.getScore("'HM-lettres4'");
                     score5 = db.getScore("'HM-lettres5'");
                     score6 = db.getScore("'HM-lettres6'");
@@ -71,7 +74,8 @@ public class StatsActivity extends AppCompatActivity {
                     updateStats();
 
                 } else {
-
+                    textviewHardmode = findViewById(R.id.textView_stats_hm);
+                    textviewHardmode.setVisibility(View.INVISIBLE);
                     score4 = db.getScore("'lettres4'");
                     score5 = db.getScore("'lettres5'");
                     score6 = db.getScore("'lettres6'");

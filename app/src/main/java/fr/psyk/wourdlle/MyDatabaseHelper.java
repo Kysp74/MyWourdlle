@@ -97,7 +97,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
 
     public Score getScore(String categorie) {
-        Log.i(TAG, "MyDatabaseHelper.getScore ... " + categorie);
+       // Log.i(TAG, "MyDatabaseHelper.getScore ... " + categorie);
 
         String Query = "SELECT  * FROM Score WHERE nom = " + categorie;
         SQLiteDatabase db = this.getReadableDatabase();
