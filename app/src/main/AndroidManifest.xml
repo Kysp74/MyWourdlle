@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="fr.psyk.wourdlle" >
+    package="fr.psyk.wourdlle">
 
     <application
         android:allowBackup="true"
@@ -8,7 +8,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Wourdlle" >
+        android:theme="@style/Theme.Wourdlle">
+        <activity
+            android:name=".test_chart"
+            android:exported="false" />
         <activity
             android:name=".StatsActivity"
             android:exported="false"
@@ -16,12 +19,12 @@
             android:theme="@style/Theme.Wourdlle.NoActionBar" />
         <activity
             android:name=".GameActivity"
-            android:theme="@style/Theme.Wourdlle.NoActionBar"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.Wourdlle.NoActionBar" />
         <activity
             android:name=".MainActivity"
-            android:theme="@style/Theme.Wourdlle.NoActionBar"
-            android:exported="true" >
+            android:exported="true"
+            android:theme="@style/Theme.Wourdlle.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -284,27 +284,27 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 break;
             case(2):
                 coup = score.coup2;
-                nomCoup = "coup1";
+                nomCoup = "coup2";
                 break;
             case(3):
                 coup = score.coup3;
-                nomCoup = "coup1";
+                nomCoup = "coup3";
                 break;
             case(4):
                 coup = score.coup4;
-                nomCoup = "coup1";
+                nomCoup = "coup4";
                 break;
             case(5):
                 coup = score.coup5;
-                nomCoup = "coup1";
+                nomCoup = "coup5";
                 break;
             case(6):
                 coup = score.coup6;
-                nomCoup = "coup1";
+                nomCoup = "coup6";
                 break;
             case(7):
                 coup = score.coup7;
-                nomCoup = "coup1";
+                nomCoup = "coup7";
                 break;
 
         }return coup;
