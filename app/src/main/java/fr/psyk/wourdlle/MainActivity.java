@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                  break;
             case R.id.main_button_daily:
                // modeDeJeux =  modeDeJeux + "-Daily";
-                Intent intent2 = new Intent(MainActivity.this,test_chart.class);
+                Intent intent2 = new Intent(MainActivity.this,ShowPopUp.class);
                 startActivity(intent2);
                 break;
             case R.id.main_button_10mots:
