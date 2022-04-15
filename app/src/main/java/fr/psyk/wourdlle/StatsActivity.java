@@ -1,39 +1,63 @@
 package fr.psyk.wourdlle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.DefaultValueFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
+
+import java.util.ArrayList;
+
 public class StatsActivity extends AppCompatActivity {
 
-    Score score4 ;
+    Score score4;
     Score score5;
-    Score score6 ;
+    Score score6;
     Score score7;
-    Score score8 ;
+    Score score8;
     Score score9;
     Score score10;
     Score score11;
     Score score12;
     Score scoreDaily;
-    Score scoreMots5 ;
+    Score scoreMots5;
     Score scoreMots10;
     private static final String TAG = "SQLite";
     private Switch HardmodeSwitch;
     TextView textviewHardmode;
+    BarChart barChart;
+    BarData barData;
+    BarDataSet barDataSet;
+    ArrayList barEntriesArrayList;
+    PopupWindow popUp;
+    ImageView image4;
+    String categorie;
+    Context mContext;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stats);
-
 
 
         HardmodeSwitch = findViewById(R.id.switchHardmodeStats);
@@ -45,9 +69,9 @@ public class StatsActivity extends AppCompatActivity {
         score8 = db.getScore("'lettres8'");
         score9 = db.getScore("'lettres9'");
         score10 = db.getScore("'lettres10'");
-        score11= db.getScore("'lettres11'");
-        score12= db.getScore("'lettres12'");
-        scoreDaily= db.getScore("'daily'");
+        score11 = db.getScore("'lettres11'");
+        score12 = db.getScore("'lettres12'");
+        scoreDaily = db.getScore("'daily'");
         scoreMots5 = db.getScore("'mots5'");
         scoreMots10 = db.getScore("'mots10'");
         updateStats();
@@ -71,9 +95,9 @@ public class StatsActivity extends AppCompatActivity {
                     score8 = db.getScore("'HM-lettres8'");
                     score9 = db.getScore("'HM-lettres9'");
                     score10 = db.getScore("'HM-lettres10'");
-                    score11= db.getScore("'HM-lettres11'");
-                    score12= db.getScore("'HM-lettres12'");
-                    scoreDaily= db.getScore("'HM-daily'");
+                    score11 = db.getScore("'HM-lettres11'");
+                    score12 = db.getScore("'HM-lettres12'");
+                    scoreDaily = db.getScore("'HM-daily'");
                     scoreMots5 = db.getScore("'HM-mots5'");
                     scoreMots10 = db.getScore("'HM-mots10'");
                     updateStats();
@@ -93,9 +117,9 @@ public class StatsActivity extends AppCompatActivity {
                     score8 = db.getScore("'lettres8'");
                     score9 = db.getScore("'lettres9'");
                     score10 = db.getScore("'lettres10'");
-                    score11= db.getScore("'lettres11'");
-                    score12= db.getScore("'lettres12'");
-                    scoreDaily= db.getScore("'daily'");
+                    score11 = db.getScore("'lettres11'");
+                    score12 = db.getScore("'lettres12'");
+                    scoreDaily = db.getScore("'daily'");
                     scoreMots5 = db.getScore("'mots5'");
                     scoreMots10 = db.getScore("'mots10'");
                     updateStats();
@@ -105,24 +129,21 @@ public class StatsActivity extends AppCompatActivity {
         });
 
 
+        image4 = findViewById(R.id.main_stats_4);
+        image4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                categorie = "Lettre4";
+                startActivity(new Intent(StatsActivity.this,Pop.class));
 
-
-
-
-
-
-
-
-
-
-
-
+            }
+        });
 
 
     }
 
     private void updateStats() {
-        Context context =this;
+        Context context = this;
 
         Log.i(TAG, "MyDatabaseHelper.getscore ... ");
         String quelButton4E = "textView4E";
@@ -135,7 +156,6 @@ public class StatsActivity extends AppCompatActivity {
         TextView textView4W = findViewById(quelTextView4W);
         int quelTextView4S = getResources().getIdentifier(quelButton4S, "id", context.getPackageName());
         TextView textView4S = findViewById(quelTextView4S);
-
 
 
         textView4W.setText(String.valueOf(score4.win));
@@ -240,10 +260,13 @@ public class StatsActivity extends AppCompatActivity {
         textViewmots5T.setText(String.valueOf(scoreMots5.temps));
 
 
-
         int queltextViewmots10T = getResources().getIdentifier("textViewM10Time", "id", context.getPackageName());
         TextView textViewmots10T = findViewById(queltextViewmots10T);
         textViewmots10T.setText(String.valueOf(scoreMots10.temps));
 
     }
+
 }
+
+
+

@@ -11,23 +11,35 @@
         android:theme="@style/Theme.Wourdlle">
         <activity
             android:name=".ShowPopUp"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".test_chart"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".StatsActivity"
             android:exported="false"
             android:label="@string/title_activity_stats"
-            android:theme="@style/Theme.Wourdlle.NoActionBar" />
+            android:theme="@style/Theme.Wourdlle.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".GameActivity"
             android:exported="false"
-            android:theme="@style/Theme.Wourdlle.NoActionBar" />
+            android:theme="@style/Theme.Wourdlle.NoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Pop"
+            android:exported="true"
+            android:theme="@style/AppTheme.CustomTheme"
+
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.Wourdlle.NoActionBar">
+            android:theme="@style/Theme.Wourdlle.NoActionBar"
+            android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

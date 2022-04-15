@@ -252,6 +252,13 @@
                 android:padding="8dp"
                 android:gravity="center"
                 android:text="Serie" />
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:gravity="center"
+                android:text="Nb Coups" />
         </TableRow>
 
 
@@ -285,6 +292,13 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="0" />
+
+            <ImageView
+                android:id="@+id/main_stats_4"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:src="@drawable/stats" />
         </TableRow>
         <TableRow
             android:layout_width="match_parent"
@@ -316,6 +330,12 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="0" />
+            <ImageView
+                android:id="@+id/main_stats_5"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:src="@drawable/stats" />
         </TableRow>
         <TableRow
             android:layout_width="match_parent"
@@ -347,6 +367,12 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="0" />
+            <ImageView
+                android:id="@+id/main_stats_6"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:src="@drawable/stats" />
         </TableRow>
         <TableRow
             android:layout_width="match_parent"
@@ -378,6 +404,12 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="0" />
+            <ImageView
+                android:id="@+id/main_stats_7"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:src="@drawable/stats" />
         </TableRow>
         <TableRow
             android:layout_width="match_parent"
@@ -409,6 +441,12 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="0" />
+            <ImageView
+                android:id="@+id/main_stats_8"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:src="@drawable/stats" />
         </TableRow>
         <TableRow
             android:layout_width="match_parent"
@@ -440,6 +478,12 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="0" />
+            <ImageView
+                android:id="@+id/main_stats_9"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:src="@drawable/stats" />
         </TableRow>
         <TableRow
             android:layout_width="match_parent"
@@ -471,6 +515,12 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="0" />
+            <ImageView
+                android:id="@+id/main_stats_10"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:src="@drawable/stats" />
         </TableRow>
         <TableRow
             android:layout_width="match_parent"
@@ -502,6 +552,12 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="0" />
+            <ImageView
+                android:id="@+id/main_stats_11"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:src="@drawable/stats" />
         </TableRow>
         <TableRow
             android:layout_width="match_parent"
@@ -533,7 +589,12 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="0" />
-
+            <ImageView
+                android:id="@+id/main_stats_12"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:src="@drawable/stats" />
 
         </TableRow>
 

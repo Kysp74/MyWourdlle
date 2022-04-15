@@ -1,27 +1,23 @@
 package fr.psyk.wourdlle;
 
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.Description;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.DefaultValueFormatter;
-import com.github.mikephil.charting.formatter.StackedValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 
-public class test_chart extends Activity {
-
+public class Pop extends Activity {
 
     BarChart barChart;
     BarData barData;
@@ -29,16 +25,30 @@ public class test_chart extends Activity {
     ArrayList barEntriesArrayList;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test_chart);
+
+        setContentView(R.layout.popwindows);
+
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+
+        int width = dm.widthPixels;
+        int height = dm.heightPixels;
+        generateGraph();
+        getWindow().setLayout((int)(width*.8),(int)(height*.6));
 
 
+    }
+
+    public void generateGraph(){
         barChart = findViewById(R.id.chart1);
         barEntriesArrayList = new ArrayList<>();
         Score score ;
         MyDatabaseHelper db = new MyDatabaseHelper(this);
-        score = db.getScore("'lettres4'");
+        String categorie = "lettres5";
+        score = db.getScore("'"+categorie+"'");
+
         barEntriesArrayList.add(new BarEntry(1f, score.coup1));
         barEntriesArrayList.add(new BarEntry(2f, score.coup2));
         barEntriesArrayList.add(new BarEntry(3f, score.coup3));
@@ -47,7 +57,6 @@ public class test_chart extends Activity {
         barEntriesArrayList.add(new BarEntry(6f, score.coup6));
         barEntriesArrayList.add(new BarEntry(7f, score.coup7));
 
-        // creating a new bar data set.
         barDataSet = new BarDataSet(barEntriesArrayList,"");
         barData = new BarData(barDataSet);
         barChart.setTouchEnabled(false);
@@ -75,10 +84,7 @@ public class test_chart extends Activity {
         left.setDrawGridLines(false); // no grid lines
         left.setDrawZeroLine(false); // draw a zero line
         barChart.getAxisRight().setEnabled(false); // no right axis
+
     }
-
-
-
-
 
 }
