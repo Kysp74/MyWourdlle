@@ -16,7 +16,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     private static final String TAG = "SQLite";
 
     // Database Version
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     // Database Name
     private static final String DATABASE_NAME = "Woordle";
@@ -94,7 +94,13 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        // Drop table
+        Log.i(TAG, "drop table");
+        db.execSQL("DROP TABLE IF EXISTS Score");
 
+
+        // Recreate
+        onCreate(db);
     }
 
 
