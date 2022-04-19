@@ -28,7 +28,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 
-public class StatsActivity extends AppCompatActivity {
+public class StatsActivity extends AppCompatActivity implements  View.OnClickListener {
 
     Score score4;
     Score score5;
@@ -45,14 +45,9 @@ public class StatsActivity extends AppCompatActivity {
     private static final String TAG = "SQLite";
     private Switch HardmodeSwitch;
     TextView textviewHardmode;
-    BarChart barChart;
-    BarData barData;
-    BarDataSet barDataSet;
-    ArrayList barEntriesArrayList;
-    PopupWindow popUp;
-    ImageView image4;
+    ImageView image4,image5,image6,image7,image8,image9,image10,image11,image12;
     String categorie;
-    Context mContext;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,7 +72,7 @@ public class StatsActivity extends AppCompatActivity {
         updateStats();
         HardmodeSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+           public void onClick(View v) {
                 boolean checked = ((Switch) v).isChecked();
                 if (checked) {
 
@@ -128,16 +123,25 @@ public class StatsActivity extends AppCompatActivity {
             }
         });
 
-
         image4 = findViewById(R.id.main_stats_4);
-        image4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                categorie = "Lettre4";
-                startActivity(new Intent(StatsActivity.this,Pop.class));
+        image4.setOnClickListener(this);
+        image5 = findViewById(R.id.main_stats_5);
+        image5.setOnClickListener(this);
+        image6 = findViewById(R.id.main_stats_6);
+        image6.setOnClickListener(this);
+        image7 = findViewById(R.id.main_stats_7);
+        image7.setOnClickListener(this);
+        image8 = findViewById(R.id.main_stats_8);
+        image8.setOnClickListener(this);
+        image9 = findViewById(R.id.main_stats_9);
+        image9.setOnClickListener(this);
+        image10 = findViewById(R.id.main_stats_10);
+        image10.setOnClickListener(this);
+        image11 = findViewById(R.id.main_stats_11);
+        image11.setOnClickListener(this);
+        image12 = findViewById(R.id.main_stats_12);
+        image12.setOnClickListener(this);
 
-            }
-        });
 
 
     }
@@ -266,7 +270,81 @@ public class StatsActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onClick(View v) {
+
+        if (HardmodeSwitch.isChecked()) {
+            switch (v.getId()) {
+                case R.id.main_stats_4:
+                    categorie = "HM-lettres4";
+                    break;
+                case R.id.main_stats_5:
+                    categorie = "HM-lettres5";
+                    break;
+                case R.id.main_stats_6:
+                    categorie = "HM-lettres6";
+                    break;
+                case R.id.main_stats_7:
+                    categorie = "HM-lettres7";
+                    break;
+                case R.id.main_stats_8:
+                    categorie = "HM-lettres8";
+                    break;
+                case R.id.main_stats_9:
+                    categorie = "HM-lettres9";
+                    break;
+                case R.id.main_stats_10:
+                    categorie = "HM-lettres10";
+                    break;
+                case R.id.main_stats_11:
+                    categorie = "HM-lettres11";
+                    break;
+                case R.id.main_stats_12:
+                    categorie = "HM-lettres12";
+                    break;
+
+            }
+        } else {
+            switch (v.getId()) {
+                case R.id.main_stats_4:
+                    categorie = "lettres4";
+                    break;
+                case R.id.main_stats_5:
+                    categorie = "lettres5";
+                    break;
+                case R.id.main_stats_6:
+                    categorie = "lettres6";
+                    break;
+                case R.id.main_stats_7:
+                    categorie = "lettres7";
+                    break;
+                case R.id.main_stats_8:
+                    categorie = "lettres8";
+                    break;
+                case R.id.main_stats_9:
+                    categorie = "lettres9";
+                    break;
+                case R.id.main_stats_10:
+                    categorie = "lettres10";
+                    break;
+                case R.id.main_stats_11:
+                    categorie = "lettres11";
+                    break;
+                case R.id.main_stats_12:
+                    categorie = "lettres12";
+                    break;
+
+            }
+
+        }
+
+
+
+        System.out.println("Graph pour la categorie: " + categorie);
+        Intent intent = new Intent(StatsActivity.this, Pop.class);
+        intent.putExtra("Categorie", categorie);
+        startActivity(intent);
+    }
+
+
 }
-
-
-

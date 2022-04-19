@@ -2,9 +2,11 @@ package fr.psyk.wourdlle;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -23,7 +25,8 @@ public class Pop extends Activity {
     BarData barData;
     BarDataSet barDataSet;
     ArrayList barEntriesArrayList;
-
+    String categorie,categorieBelle;
+    TextView textView;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,9 +38,23 @@ public class Pop extends Activity {
 
         int width = dm.widthPixels;
         int height = dm.heightPixels;
+
+        Intent intent = getIntent();
+
+        if (intent != null){
+            categorie = intent.getStringExtra("Categorie");
+        }
+        System.out.println("Graph pour la categorie: " + categorie);
         generateGraph();
         getWindow().setLayout((int)(width*.8),(int)(height*.6));
+        textView = findViewById(R.id.textView_pop);
+        if (categorie.startsWith("H")){
+            categorieBelle = categorie.substring(10) + " " + categorie.substring(3,10) + " HardMode";
+        }else {
+            categorieBelle = categorie.substring(7) + " " + categorie.substring(0,7);
+        }
 
+        textView.setText("Nombre de coup pour "+categorieBelle);
 
     }
 
@@ -46,7 +63,7 @@ public class Pop extends Activity {
         barEntriesArrayList = new ArrayList<>();
         Score score ;
         MyDatabaseHelper db = new MyDatabaseHelper(this);
-        String categorie = "lettres5";
+       // String categorie = "lettres5";
         score = db.getScore("'"+categorie+"'");
 
         barEntriesArrayList.add(new BarEntry(1f, score.coup1));
