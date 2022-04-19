@@ -253,13 +253,17 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
         myLayout.removeView(tableLayout);
         myLayout.addView(tableLayout);
-
+        View view = findViewById(R.id.maview);
+        myLayout.removeView(view);
+        myLayout.addView(view);
         TableLayout clavierLayout = findViewById(R.id.monclavier);
         myLayout.removeView(clavierLayout);
         myLayout.addView(clavierLayout);
+
         TableLayout clavierEnterLayout = findViewById(R.id.monclavierenter);
         myLayout.removeView(clavierEnterLayout);
         myLayout.addView(clavierEnterLayout);
+
 
     }
 
@@ -795,7 +799,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         Context context = this;
         new AlertDialog.Builder(context)
                 .setTitle("Retour au menu")
-                .setMessage("Es tu sur ")
+                .setMessage("Es tu sur ??")
                 .setPositiveButton("Oui", (dialog, whichButton) -> {
                     // The user wants to leave - so dismiss the dialog and exit
                     if (lignePourLettre == 0 && !updateEssaiok){
