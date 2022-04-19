@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -54,7 +56,9 @@ public class Pop extends Activity {
             categorieBelle = categorie.substring(7) + " " + categorie.substring(0,7);
         }
 
-        textView.setText("Nombre de coup pour "+categorieBelle);
+        textView.setText("Nombre de coups pour "+categorieBelle);
+
+
 
     }
 
@@ -88,7 +92,7 @@ public class Pop extends Activity {
         barChart.getLegend().setEnabled(false);
 
         XAxis xAxis = barChart.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
         xAxis.setTextSize(16f);
         xAxis.setTextColor(Color.RED);
         xAxis.setDrawAxisLine(false);
@@ -103,5 +107,9 @@ public class Pop extends Activity {
         barChart.getAxisRight().setEnabled(false); // no right axis
 
     }
-
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        finish();
+        return super.dispatchTouchEvent(ev);
+    }
 }

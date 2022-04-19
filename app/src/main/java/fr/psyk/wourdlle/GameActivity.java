@@ -440,6 +440,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
             } else {
                 Toast.makeText(this, "Mot incomplet", Toast.LENGTH_SHORT).show();
+
             }
         }
 
@@ -460,22 +461,23 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
 
         constructionMot(lignePourLettre);
-        //motOk = motexiste(motATester);
-        motOk = true;
-        if (motOk) {
+        motOk = motexiste(motATester);
+
+
+        if (motOk == true) {
             lettreVerte.clear();
             lettreOrange.clear();
             if (motATester.equals(motATrouver)) {
                 if (serieEnCours > -1) {
                     serieEnCours = serieEnCours + 1;
-                } else {
+                }else {
                     serieEnCours = 0;
                 }
                 MyDatabaseHelper db = new MyDatabaseHelper(this);
                 db.updateScore(nbLettre, lignePourLettre + 1, serieEnCours,hardMode);
                 db.close();
                 endGame("gagner");
-            } else {
+            }else {
                 modicationCouleur(motATester);
                 if (hardMode) {
                     pcolonnePourLettre = 0;
@@ -499,6 +501,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             }
         }else{
             Toast.makeText(this, "Ce mots n'éxiste pas", Toast.LENGTH_SHORT).show();
+
         }
 
     }
@@ -544,6 +547,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 motOk = mot12.lettres12.contains(motATester);
                 break;
         }
+
         return motOk;
     }
 

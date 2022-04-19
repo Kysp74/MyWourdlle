@@ -31,7 +31,7 @@
         <activity
             android:name=".Pop"
             android:exported="true"
-            android:theme="@style/AppTheme.CustomTheme"
+            android:theme="@style/Theme.Wourdlle.Pop"
 
             android:screenOrientation="portrait"/>
         <activity

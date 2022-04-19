@@ -56,9 +56,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 modeDeJeux = modeDeJeux + "-5mots";
                  break;
             case R.id.main_button_daily:
-               // modeDeJeux =  modeDeJeux + "-Daily";
-                Intent intent2 = new Intent(MainActivity.this,ShowPopUp.class);
-                startActivity(intent2);
+                modeDeJeux =  modeDeJeux + "-Daily";
+
                 break;
             case R.id.main_button_10mots:
                 modeDeJeux =  modeDeJeux + "-10mots";

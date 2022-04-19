@@ -6,7 +6,8 @@
 <TableLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="15dp">
+    android:padding="8dp"
+   >
     <TextView
         android:id="@+id/textView_pop"
         android:layout_width="match_parent"
