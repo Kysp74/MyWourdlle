@@ -186,7 +186,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         try {
             Date dateold = dateFormat.parse(oldtemps);
             Date datenew = dateFormat.parse(temps);
-            if (dateold.after(datenew)){
+            if (dateold.before(datenew)){
                 temps = dateFormat.format(dateold);
             }
 
