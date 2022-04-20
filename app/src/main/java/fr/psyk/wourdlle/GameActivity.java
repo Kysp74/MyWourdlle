@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.text.format.DateFormat;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TableLayout;
@@ -43,7 +45,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     int idARecup=1;
     String modeJeu ="";
     boolean hardMode = false;
-    String motATester = "" , temps;
+    String motATester = "" , temps,quelleEtoile;
     int nombreDeMotsATrouver , nombreDeMotEnCours = 1 ;
     TextView mTextView_Seek;
     LinearLayout layoutSelectNbLettre,layoutChrono;
@@ -57,6 +59,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     ArrayList<Character> lettreVerte = new ArrayList<>();
     int nb;
     private Chronometer chronometer2;
+    ImageView etoiles ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +67,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        etoiles = findViewById(R.id.game_etoiles);
         recupModeJeu();
         System.out.println("le mode est " + modeJeu + " hardmode: " +hardMode);
         initVarible();
@@ -196,9 +200,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             }if(modeJeu.contains("5")){
                 nombreDeMotsATrouver = 5;
                 modeJeu = "mots";
+                etoiles.setImageResource(R.drawable.e_0);
             }if(modeJeu.contains("10")){
                 nombreDeMotsATrouver = 10;
                 modeJeu = "mots";
+                etoiles.setImageResource(R.drawable.e_10_0);
             }
 
 
@@ -705,7 +711,23 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
                 if (nombreDeMotEnCours < nombreDeMotsATrouver ){
 
+                    if (nombreDeMotsATrouver == 5){
+                        quelleEtoile = "e_"+ nombreDeMotEnCours;
+
+                    }
+                    if (nombreDeMotsATrouver == 10){
+                        quelleEtoile = "e_10_"+ nombreDeMotEnCours;
+                    }
+
                     nombreDeMotEnCours = nombreDeMotEnCours +1;
+                   // int quelleEtoileId = getResources().getIdentifier("wourdlle:drawable/" + quelleEtoile, null, null);
+                    Resources res = getResources();
+                    int resourceId = res.getIdentifier(
+                            quelleEtoile, "drawable", getPackageName() );
+                    etoiles.setImageResource( resourceId );
+                    System.out.println("l'étoile a changer est : "+ quelleEtoile + " et son id est  : "+ resourceId);
+                    //etoiles.setImageResource(quelleEtoileId);
+
                     deleteinterface();
                     generateNblettre();
                     lanceLeJeu();
