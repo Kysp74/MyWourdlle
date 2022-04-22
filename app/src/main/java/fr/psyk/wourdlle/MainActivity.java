@@ -17,9 +17,8 @@ import java.io.InputStreamReader;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private Button mPlayButton,mDailyButton,m5motsButton,m10motsButton,mStatButton;
     private Switch mHardmodeSwitch;
-    private TextView mTextView_Seek;
+
     String modeDeJeux ="";
 
 
@@ -30,11 +29,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mHardmodeSwitch = findViewById(R.id.switchHardmode);
 
-        mPlayButton = findViewById(R.id.main_button_play);
-        mDailyButton = findViewById(R.id.main_button_daily);
-        m10motsButton = findViewById(R.id.main_button_5mots);
-        m5motsButton = findViewById(R.id.main_button_10mots);
-        mStatButton = findViewById(R.id.main_button_stats);
+        Button mPlayButton = findViewById(R.id.main_button_play);
+        Button mDailyButton = findViewById(R.id.main_button_daily);
+        Button m10motsButton = findViewById(R.id.main_button_5mots);
+        Button m5motsButton = findViewById(R.id.main_button_10mots);
+        Button mStatButton = findViewById(R.id.main_button_stats);
         mPlayButton.setOnClickListener(this);
         mDailyButton.setOnClickListener(this);
         m10motsButton.setOnClickListener(this);
