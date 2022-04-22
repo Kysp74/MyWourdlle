@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
-import android.view.View;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;

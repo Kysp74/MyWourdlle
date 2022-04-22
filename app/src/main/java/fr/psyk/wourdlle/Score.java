@@ -1,7 +1,6 @@
 package fr.psyk.wourdlle;
 
 
-import java.lang.reflect.Field;
 
 public class Score {
 
