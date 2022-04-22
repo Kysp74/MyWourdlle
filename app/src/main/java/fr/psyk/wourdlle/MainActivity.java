@@ -10,6 +10,10 @@ import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
@@ -38,6 +42,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         m5motsButton.setOnClickListener(this);
         mStatButton.setOnClickListener(this);
 
+        MyDatabaseHelper db = new MyDatabaseHelper(this);
+        int newVersionDbMots = 0;
+        int versionDbMots =0;
+        versionDbMots = db.getVersion();
+
+        InputStream insertsStream = this.getResources().openRawResource(R.raw.mots1);
+        BufferedReader insertReader = new BufferedReader(new InputStreamReader(insertsStream));
+        try {
+            String insertStmt = insertReader.readLine();
+            newVersionDbMots = Integer.parseInt(insertStmt);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    if (versionDbMots != newVersionDbMots){
+
+
+        try {
+            int versionAUpdate = db.insertFromFile(this,R.raw.mots1);
+            System.out.println("la nouvelle version est = "+ versionAUpdate);
+            db.updateVersion(versionAUpdate);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }else{
+        System.out.println("meme version");
+    }
 
     }
 

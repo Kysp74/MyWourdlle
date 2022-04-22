@@ -10,14 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Wourdlle">
         <activity
-            android:name=".ShowPopUp"
-            android:exported="false"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".test_chart"
-            android:exported="false"
-            android:screenOrientation="portrait"/>
-        <activity
             android:name=".StatsActivity"
             android:exported="false"
             android:label="@string/title_activity_stats"

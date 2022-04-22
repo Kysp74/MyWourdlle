@@ -5,8 +5,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteStatement;
 import android.util.Log;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -23,7 +28,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     private  int coup;
     private  String lettres = "";
-    private String nomCoup ,oldtemps;
+    private String nomCoup ,oldtemps,motatrouver;
     private int essai,win,serie;
     public MyDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -34,6 +39,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         Log.i(TAG, "MyDatabaseHelper.onCreate ... ");
         // Script.
+
+
         String script = "CREATE TABLE Score (nom STRING PRIMARY KEY, essai INTEGER, win INTEGER, serie INTEGER, coup1 INTEGER, coup2 INTEGER, coup3 INTEGER, coup4 INTEGER, coup5 INTEGER, coup6 INTEGER, coup7 INTEGER, temps STRING);";
         // Execute Script.
         db.execSQL(script);
@@ -90,6 +97,14 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(sctipt11);
         db.execSQL(sctipt12);
 
+
+
+        String scriptVersion = "CREATE TABLE IF NOT EXISTS version (version INTEGER);";
+        // Execute Script.
+        db.execSQL(scriptVersion);
+        String scriptVersion2 = "INSERT INTO version (version) VALUES (0);";
+        // Execute Script.
+        db.execSQL(scriptVersion2);
     }
 
     @Override
@@ -97,7 +112,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         // Drop table
         Log.i(TAG, "drop table");
         db.execSQL("DROP TABLE IF EXISTS Score");
-
+        db.execSQL("DROP TABLE IF EXISTS version");
 
         // Recreate
         onCreate(db);
@@ -186,7 +201,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         try {
             Date dateold = dateFormat.parse(oldtemps);
             Date datenew = dateFormat.parse(temps);
-            if (dateold.before(datenew)){
+
+            if (dateold.before(datenew) && !oldtemps.equals("00:00")){
                 temps = dateFormat.format(dateold);
             }
 
@@ -317,9 +333,87 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
 
     }
+
+    public int insertFromFile(Context context, int resourceId) throws IOException {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Reseting Counter
+        int version = 0;
+
+        // Open the resource
+        InputStream insertsStream = context.getResources().openRawResource(resourceId);
+        BufferedReader insertReader = new BufferedReader(new InputStreamReader(insertsStream));
+
+        // Iterate through lines (assuming each insert has its own line and theres no other stuff)
+        while (insertReader.ready()) {
+            String insertStmt = insertReader.readLine();
+            if (insertStmt.length()>2){
+                db.execSQL(insertStmt);
+
+            }else
+                version = Integer.parseInt(insertStmt);
+
+        }
+        insertReader.close();
+
+        // returning number of inserted rows
+        return version;
+    }
+
+    public int getVersion(){
+
+        String Query = "SELECT  * FROM version";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Log.i(TAG, "MyDatabaseHelper.getVersion");
+        Cursor cursor = db.rawQuery(Query,null);
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        int version =  Integer.parseInt(cursor.getString(0));
+        // return note
+        return version;
+    }
+
+ public void updateVersion(int version){
+        //mettre la version au meme nombre que le premier caractère du ficheri
+     Log.i(TAG, "MyDatabaseHelper.updateversion");
+     SQLiteDatabase db = this.getWritableDatabase();
+     ContentValues cv = new ContentValues();
+     cv.put("version",version);
+     String where = "rowid=1";
+     db.update("version", cv, where,null);
+        }
+
+        public String getmot(int nblettre){
+            Log.i(TAG, "MyDatabaseHelper.getmot de " + nblettre + " lettres");
+            String Query = " SELECT * FROM l"+nblettre+" ORDER BY RANDOM() LIMIT 1;";
+            SQLiteDatabase db = this.getReadableDatabase();
+            Log.i(TAG, "MyDatabaseHelper.getVersion");
+            Cursor cursor = db.rawQuery(Query,null);
+            if (cursor != null)
+                cursor.moveToFirst();
+
+            motatrouver =  cursor.getString(0);
+
+        return motatrouver ;
+        }
+
+        public boolean motEstPresent(String motATester){
+            String nomTable = "l" + motATester.length();
+            String sql = "SELECT  count(*) FROM " +nomTable+ " WHERE mots = '" +motATester + "';";
+            SQLiteDatabase db = this.getReadableDatabase();
+            Log.i(TAG, "MyDatabaseHelper.getMotExiste");
+            SQLiteStatement statement = db.compileStatement(sql);
+
+            try {
+                return statement.simpleQueryForLong() > 0;
+            } finally {
+                statement.close();
+            }
+        }
+
 }
-
-
 
 
 

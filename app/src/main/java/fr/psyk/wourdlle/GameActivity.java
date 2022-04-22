@@ -170,8 +170,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private void recupMots() {
 
 
-        Mots mot = new Mots();
-        motATrouver = mot.getMots(nbLettre);
+        MyDatabaseHelper db = new MyDatabaseHelper(this);
+        motATrouver = db.getmot(nbLettre);
         System.out.println("le mots est " + motATrouver);
 
     }
@@ -200,10 +200,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             }if(modeJeu.contains("5")){
                 nombreDeMotsATrouver = 5;
                 modeJeu = "mots";
+                etoiles.setVisibility(View.VISIBLE);
                 etoiles.setImageResource(R.drawable.e_0);
             }if(modeJeu.contains("10")){
                 nombreDeMotsATrouver = 10;
                 modeJeu = "mots";
+                etoiles.setVisibility(View.VISIBLE);
                 etoiles.setImageResource(R.drawable.e_10_0);
             }
 
@@ -471,8 +473,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
 
         constructionMot(lignePourLettre);
-        motOk = motexiste(motATester);
-
+        MyDatabaseHelper db = new MyDatabaseHelper(this);
+      //  motOk = motexiste(motATester);
+            motOk = db.motEstPresent(motATester);
 
         if (motOk == true) {
             lettreVerte.clear();
@@ -483,7 +486,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 }else {
                     serieEnCours = 0;
                 }
-                MyDatabaseHelper db = new MyDatabaseHelper(this);
+
                 db.updateScore(nbLettre, lignePourLettre + 1, serieEnCours,hardMode);
                 db.close();
                 endGame("gagner");
@@ -504,7 +507,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 } else {
                     serieEnCours = serieEnCours - 1;
                 }
-                MyDatabaseHelper db = new MyDatabaseHelper(this);
+
                 db.updateSerie(nbLettre, serieEnCours,hardMode);
                 db.close();
                 endGame("perdue");
@@ -516,50 +519,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private boolean motexiste(String motATester) {
 
-        System.out.println("longeur est " + nbLettre);
-        switch (nbLettre){
-            case(4):
-                mots4 mot4 = new mots4();
-                motOk = mot4.lettres4.contains(motATester);
-                break;
-            case(5):
-                mots5 mot5 = new mots5();
-                motOk = mot5.lettres5.contains(motATester);
-                break;
-            case(6):
-                mots6 mot6 = new mots6();
-                motOk = mot6.lettres6.contains(motATester);
-                break;
-            case(7):
-                mots7 mot7 = new mots7();
-                motOk = mot7.lettres7.contains(motATester);
-                break;
-            case(8):
-                mots8 mot8 = new mots8();
-                motOk = mot8.lettres8.contains(motATester);
-                break;
-            case(9):
-                mots9 mot9 = new mots9();
-                motOk = mot9.lettres9.contains(motATester);
-                break;
-            case(10):
-                mots10 mot10 = new mots10();
-                motOk = mot10.lettres10.contains(motATester);
-                break;
-            case(11):
-                mots11 mot11 = new mots11();
-                motOk = mot11.lettres11.contains(motATester);
-                break;
-            case(12):
-                mots12 mot12 = new mots12();
-                motOk = mot12.lettres12.contains(motATester);
-                break;
-        }
-
-        return motOk;
-    }
 
     private void modicationCouleur(String motATesterPourCouleur) {
 
